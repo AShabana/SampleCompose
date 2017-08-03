@@ -1,0 +1,50 @@
+version: '2.1'
+
+services:
+    restcomm:
+       image: "phusion/baseimage"
+       env_file:
+            - "./production_env"
+       volumes: 
+            - "../../restcomm:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ production_net ,]
+
+    opensips:
+       image: "phusion/baseimage"
+       env_file:
+            - "./production_env"
+       volumes: 
+            - "../../opensips:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ production_net ,]
+
+    radius:
+       image: "phusion/baseimage"
+       env_file:
+            - "./production_env"
+       volumes: 
+            - "../../radius:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ production_net ,]
+
+    asterisk:
+       image: "phusion/baseimage"
+       env_file:
+            - "./production_env"
+       volumes: 
+            - "../../asterisk:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ production_net ,]
+
+networks:
+    production_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.238.0/24

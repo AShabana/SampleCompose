@@ -1,0 +1,50 @@
+version: '2.1'
+
+services:
+    restcomm:
+       image: "phusion/baseimage"
+       env_file:
+            - "./testing_env"
+       volumes: 
+            - "../../restcomm:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ test_net ,]
+
+    opensips:
+       image: "phusion/baseimage"
+       env_file:
+            - "./testing_env"
+       volumes: 
+            - "../../opensips:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ test_net ,]
+
+    radius:
+       image: "phusion/baseimage"
+       env_file:
+            - "./testing_env"
+       volumes: 
+            - "../../radius:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ test_net ,]
+
+    asterisk:
+       image: "phusion/baseimage"
+       env_file:
+            - "./testing_env"
+       volumes: 
+            - "../../asterisk:/app"
+       command: "sh /app/app.sh"
+       networks:
+            [ test_net ,]
+
+networks:
+    test_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: "192.168.0.1/24"
